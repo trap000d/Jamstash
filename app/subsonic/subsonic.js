@@ -640,32 +640,6 @@ angular.module('jamstash.subsonic.controller', [
         persistence.saveSelectedGenreNames($scope.genrePlaylists);
     };
 
-    $scope.getPodcasts = function () {
-        var promise = subsonic.getPodcasts();
-        $scope.handleErrors(promise).then(function (podcasts) {
-            $scope.podcasts = podcasts;
-        }, function () {
-            // Do not display a notification, there simply are no podcasts.
-            // Otherwise, a notification will be displayed at every page reload.
-            $scope.podcasts = [];
-        });
-    };
-
-    $scope.getPodcast = function (action, id) {
-        var promise = subsonic.getPodcast(id);
-        $scope.requestSongs(promise, action);
-
-        $scope.song = [];
-        $scope.album = [];
-        breadcrumbs.reset();
-        $scope.selectedAutoAlbum = null;
-        $scope.selectedArtist = null;
-        $scope.selectedAlbum = null;
-        $scope.selectedAutoPlaylist = null;
-        $scope.selectedPlaylist = null;
-        $scope.selectedPodcast = id;
-    };
-
     $scope.getMusicFolders = function () {
         var promise = subsonic.getMusicFolders();
         $scope.handleErrors(promise).then(function (musicFolders) {
@@ -706,7 +680,6 @@ angular.module('jamstash.subsonic.controller', [
     $scope.getPlaylists();
     $scope.getGenres();
     $scope.loadGenrePlaylists();
-    $scope.getPodcasts();
     $scope.openDefaultSection();
     if ($routeParams.artistId && $routeParams.albumId) {
         $scope.getAlbumByTag($routeParams.albumId);

@@ -31,7 +31,7 @@ angular.module('jamstash.settings.service', [])
         Password: "guest"),
         Server: "http://subsonic.org/demo"),
         */
-        Url: "http://jamstash.com/#/archive/",
+        Url: "https://subsonic.example.org",
         Username: "",
         Password: "",
         Server: "",
@@ -53,7 +53,6 @@ angular.module('jamstash.settings.service', [])
         DefaultLibraryLayout: this.Layouts[0],
         DefaultSearchType: this.SearchTypes[0],
         DefaultAlbumSort: this.AlbumSorts[0],
-        DefaultArchiveAlbumSort: "date desc",
         Jukebox: false,
         AutoPlay: false,
         LoopQueue: false,
@@ -65,7 +64,6 @@ angular.module('jamstash.settings.service', [])
     };
     this.SavedCollections = [];
     this.Player1 = '#playdeck_1';
-    this.archiveUrl = 'https://archive.org/';
     this.ChangeLog = null;
     this.Messages = [];
 
@@ -78,9 +76,6 @@ angular.module('jamstash.settings.service', [])
     'use strict';
 
     return {
-        getCollections: function (callback) {
-            $http.get('archive/json_collections.json').success(callback);
-        },
         getChangeLog: function (callback) {
             $http.get('common/json_changelog.json').success(callback);
         }

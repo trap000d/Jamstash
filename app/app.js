@@ -7,7 +7,6 @@ angular.module('JamStash', [
     'ngSanitize',
     'ngLodash',
     'jamstash.subsonic.controller',
-    'jamstash.archive.controller',
     'jamstash.player.controller',
     'jamstash.queue.controller',
     'jamstash.settings.controller',
@@ -22,10 +21,6 @@ angular.module('JamStash', [
         .when('/library', { templateUrl: 'subsonic/subsonic.html', controller: 'SubsonicController' })
         .when('/library/:artistId', { templateUrl: 'subsonic/subsonic.html', controller: 'SubsonicController', reloadOnSearch: false })
         .when('/library/:artistId/:albumId', { templateUrl: 'subsonic/subsonic.html', controller: 'SubsonicController', reloadOnSearch: false })
-        .when('/podcasts', { templateUrl: 'podcasts/podcasts.html', controller: 'PodcastController' })
-        .when('/archive', { templateUrl: 'archive/archive.html', controller: 'ArchiveController' })
-        .when('/archive/:artist', { templateUrl: 'archive/archive.html', controller: 'ArchiveController' })
-        .when('/archive/:artist/:album', { templateUrl: 'archive/archive.html', controller: 'ArchiveController' })
         .otherwise({ redirectTo: '/index' });
 }])
 
@@ -48,7 +43,7 @@ function authenticationInterceptor($rootScope, $location, $q, globals) {
             path = $location.path();
             if (globals.settings.Debug) { console.log('Logged In: ' + $rootScope.loggedIn); }
             if (globals.settings.Debug) { console.log('Current Path: ' + path); }
-            if (!$rootScope.loggedIn && path != '/settings' && path.search('archive') < 0) {
+            if (!$rootScope.loggedIn && path != '/settings') {
                 $location.path('/settings');
             }
             return request;
